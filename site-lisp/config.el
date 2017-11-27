@@ -13,9 +13,7 @@
 (load-theme 'doom-tomorrow-night)
 (global-auto-revert-mode 1)
 (doom-themes-visual-bell-config)
-
-;; keybindings
-(global-set-key (kbd "C-=") 'er/expand-region)
+(global-hl-line-mode 1)
 
 (provide 'config)
 

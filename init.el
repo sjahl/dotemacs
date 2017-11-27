@@ -35,4 +35,3 @@
 (require 'functions)
 (require 'pkgs)
 (require 'config)
-(require 'mode)
