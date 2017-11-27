@@ -14,7 +14,11 @@
 (require 'use-package))
 
 (use-package exec-path-from-shell
-  :ensure t)
+  :ensure t
+  :config
+  (if window-system
+    (progn
+      (exec-path-from-shell-initialize))))
 
 (use-package projectile
   :ensure t
