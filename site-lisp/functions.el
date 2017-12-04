@@ -63,6 +63,9 @@
 
 
 (defun maximize-window ()
+"When in a multi-pane layout, maximize the current pane.  After
+maximizing, call the function again to return to the old pane
+layout."
   (interactive)
   (if (not (get-register 'w))
       (progn (window-configuration-to-register 'w)
