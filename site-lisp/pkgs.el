@@ -75,6 +75,10 @@
 (use-package doom-themes
   :ensure t)
 
+(use-package avy
+  :ensure t
+  :bind ("C-c j" . avy-goto-word-or-subword-1))
+
 (provide 'pkgs)
 
 ;;; pkgs.el ends here

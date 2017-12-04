@@ -61,6 +61,17 @@
   (interactive)
   (byte-recompile-directory user-emacs-directory 0))
 
+
+(defun maximize-window ()
+  (interactive)
+  (if (not (get-register 'w))
+      (progn (window-configuration-to-register 'w)
+             (delete-other-windows))
+    (progn (jump-to-register 'w)
+           (set-register 'w nil))))
+
+(global-set-key (kbd "C-M-SPC") 'maximize-window)
+
 (provide 'functions)
 
 ;;; functions.el ends here
