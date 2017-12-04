@@ -73,7 +73,7 @@ layout."
     (progn (jump-to-register 'w)
            (set-register 'w nil))))
 
-(global-set-key (kbd "C-M-SPC") 'maximize-window)
+(global-set-key (kbd "C-c m") 'maximize-window)
 
 (provide 'functions)
 
