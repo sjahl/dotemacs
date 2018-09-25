@@ -33,21 +33,25 @@
   :ensure t)
 
 (use-package company
-  :ensure t)
-
-(use-package company-jedi
   :ensure t
   :init
-  (setq jedi:environment-virtualenv (list (expand-file-name "~/.emacs./.python-environments")))
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
-  (setq jedi:use-shortcuts t)
-  :config
-  (defun config/enable-company-jedi ()
-    (add-to-list 'company-backends 'company-jedi))
-  (add-hook 'python-mode-hook 'config/enable-company-jedi)
+  (setq company-dabbrev-downcase 0)
+  (setq company-idle-delay 0))
 
-  (add-hook 'after-init-hook 'global-company-mode))
+;; (use-package company-jedi
+;;   :ensure t
+;;   :init
+;;   (setq jedi:environment-virtualenv (list (expand-file-name "~/.emacs.d/.python-environments")))
+;;   (add-hook 'python-mode-hook 'jedi:setup)
+;;   (setq jedi:complete-on-dot t)
+;;   (setq jedi:use-shortcuts t)
+;;   :config
+;;   (defun config/enable-company-jedi ()
+;;     (add-to-list 'company-backends 'company-jedi))
+  
+;;   (add-hook 'python-mode-hook 'config/enable-company-jedi)
+
+;;   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yaml-mode
   :ensure t)
@@ -66,7 +70,9 @@
 (use-package flycheck
   :ensure t
   :config
-  (global-flycheck-mode 1))
+  (global-flycheck-mode 1)
+  :init
+  (setq flycheck-check-syntax-automatically '(mode-enabled save)))
 
 (use-package expand-region
   :ensure t
@@ -75,10 +81,20 @@
 (use-package doom-themes
   :ensure t)
 
+(use-package darktooth-theme
+  :ensure t)
+
 (use-package avy
   :ensure t
   :bind ("C-c j" . avy-goto-word-or-subword-1))
 
+(use-package dockerfile-mode
+  :ensure t)
+
+(use-package highlight-numbers
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 (provide 'pkgs)
 
 ;;; pkgs.el ends here
