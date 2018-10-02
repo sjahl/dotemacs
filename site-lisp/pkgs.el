@@ -20,14 +20,26 @@
     (progn
       (exec-path-from-shell-initialize))))
 
-(use-package projectile
+;; (use-package projectile
+;;   :ensure t
+;;   ;; :init
+;;   ;; (setq projectile-mode-line
+;;   ;;        '(:eval (format " Projectile[%s]"
+;;   ;;                        (projectile-project-name))))
+;;   :config
+;;   (projectile-mode 1)
+;;   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+(use-package helm
   :ensure t
-  :init
-  (setq projectile-mode-line
-         '(:eval (format " Projectile[%s]"
-                         (projectile-project-name))))
   :config
-  (projectile-mode 1))
+  :bind (("M-p" . helm-find-files)))
+
+(use-package helm-ls-git
+  :ensure t
+  :config
+  :bind ("C-x C-g" . helm-browse-project))
 
 (use-package better-defaults
   :ensure t)
@@ -36,7 +48,7 @@
   :ensure t
   :init
   (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 0))
+  (setq company-idle-delay 0)
 
 ;; (use-package company-jedi
 ;;   :ensure t
@@ -51,7 +63,7 @@
   
 ;;   (add-hook 'python-mode-hook 'config/enable-company-jedi)
 
-;;   (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yaml-mode
   :ensure t)
@@ -81,8 +93,10 @@
 (use-package doom-themes
   :ensure t)
 
-(use-package darktooth-theme
-  :ensure t)
+(use-package base16-theme
+  :ensure t
+  :init
+  (load-theme 'base16-material))
 
 (use-package avy
   :ensure t
