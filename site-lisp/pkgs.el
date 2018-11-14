@@ -114,7 +114,10 @@
 (use-package base16-theme
   :ensure t
   :init
-  (load-theme 'base16-material))
+  (load-theme 'base16-material-darker))
+
+(use-package kaolin-themes
+  :ensure t)
 
 (use-package avy
   :ensure t
