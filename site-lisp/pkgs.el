@@ -20,23 +20,23 @@
     (progn
       (exec-path-from-shell-initialize))))
 
-;; (use-package projectile
-;;   :ensure t
-;;   ;; :init
-;;   ;; (setq projectile-mode-line
-;;   ;;        '(:eval (format " Projectile[%s]"
-;;   ;;                        (projectile-project-name))))
-;;   :config
-;;   (projectile-mode 1)
-;;   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+(use-package diminish
+  :ensure t)
 
-;; (use-package helm
-;;   :ensure t
-;;   :config
-;;   (helm-mode 1)
-;;   (require 'helm-config)
-;;   :bind (("M-p" . helm-find-files)))
+(use-package delight
+  :ensure t)
+
+(use-package projectile
+  :delight '(:eval (concat " " (projectile-project-name)))
+  :ensure t
+  ;; :init
+  ;; (setq projectile-mode-line
+  ;;        '(:eval (format " Projectile[%s]"
+  ;;                        (projectile-project-name))))
+  :config
+  (projectile-mode 1)
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package helm
   :diminish helm-mode
@@ -63,6 +63,7 @@
   :ensure t)
 
 (use-package company
+  :diminish company-mode
   :ensure t
   :init
   (setq company-dabbrev-downcase 0)
