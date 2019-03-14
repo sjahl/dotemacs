@@ -7,3 +7,7 @@ init.el~
 projectile-bookmarks.eld
 .python-environments
 network-security.data
+recentf
+transient
+eshell
+.lsp-session*

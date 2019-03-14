@@ -38,6 +38,11 @@
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
+(use-package projectile-rails
+  :ensure t
+  :config
+  (projectile-rails-global-mode 1))
+
 (use-package helm
   :diminish helm-mode
   :ensure t
@@ -114,11 +119,12 @@
 
 (use-package base16-theme
   :ensure t
-  :init
-  (load-theme 'base16-material-darker))
+  :init)
 
 (use-package kaolin-themes
-  :ensure t)
+  :ensure t
+  :init
+  (load-theme 'kaolin-light))
 
 (use-package avy
   :ensure t
@@ -131,6 +137,42 @@
   :ensure t
   :init
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+
+(use-package web-mode
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode)))
+
+(use-package js2-mode
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+
+(use-package coffee-mode
+  :ensure t)
+
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :commands lsp
+;;   :init
+;;   (setq lsp-enable-flycheck t
+;;         lsp-enable-eldoc t
+;;         lsp-enable-completion-at-point t
+;;         lsp-auto-guess-root t
+;;         lsp-print-io t)
+;;   (add-hook 'ruby-mode-hook #'lsp))
+
+
+;; (use-package company-lsp
+;;   :ensure t
+;;   :commands company-lsp
+;;   :after lsp-mode)
+
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :commands lsp-ui-mode
+;;   :after lsp-mode)
+
 (provide 'pkgs)
 
 ;;; pkgs.el ends here
