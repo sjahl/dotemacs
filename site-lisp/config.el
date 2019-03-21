@@ -15,6 +15,7 @@
 (global-hl-line-mode 1)
 (column-number-mode 1)
 (global-unset-key (kbd "C-z"))
+(delete-selection-mode 1)
 
 (provide 'config)
 

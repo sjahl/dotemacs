@@ -122,9 +122,7 @@
   :init)
 
 (use-package kaolin-themes
-  :ensure t
-  :init
-  (load-theme 'kaolin-light))
+  :ensure t)
 
 (use-package avy
   :ensure t
@@ -150,6 +148,12 @@
 
 (use-package coffee-mode
   :ensure t)
+
+(use-package solarized-theme
+  :ensure t
+  :init
+  (setq x-underline-at-descent-line t)
+  (load-theme 'solarized-light))
 
 ;; (use-package lsp-mode
 ;;   :ensure t
