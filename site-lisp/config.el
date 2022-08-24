@@ -16,6 +16,13 @@
 (column-number-mode 1)
 (global-unset-key (kbd "C-z"))
 (delete-selection-mode 1)
+(ido-mode 1)
+(electric-pair-mode 1)
+
+(setq backup-directory-alist '(("." . "~/.emacs-saves")))
+
+(global-set-key (kbd "M-u") 'upcase-dwim)
+(global-set-key (kbd "M-l") 'downcase-dwim)
 
 (provide 'config)
 

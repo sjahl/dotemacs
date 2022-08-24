@@ -38,32 +38,6 @@
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
-(use-package projectile-rails
-  :ensure t
-  :config
-  (projectile-rails-global-mode 1))
-
-(use-package helm
-  :diminish helm-mode
-  :ensure t
-  :init
-  (progn
-    (require 'helm-config)
-    (setq helm-candidate-number-limit 100)
-    ;; From https://gist.github.com/antifuchs/9238468
-    (setq helm-M-x-requires-pattern nil
-          helm-ff-skip-boring-files t))
-    ;;replace locate with spotlight - uncomment next 2 lines on Mac
-    ;;(setq locate-command "mdfind -name")
-    ;;(setq helm-locate-command "mdfind -name %s %s")
-  :bind (("C-x f" . helm-for-files)
-         ("M-x" . helm-M-x)))
-
-(use-package helm-ls-git
-  :ensure t
-  :config
-  :bind ("C-x C-g" . helm-browse-project))
-
 (use-package better-defaults
   :ensure t)
 
@@ -71,37 +45,23 @@
   :diminish company-mode
   :ensure t
   :init
-  (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 0)
-
-;; (use-package company-jedi
-;;   :ensure t
-;;   :init
-;;   (setq jedi:environment-virtualenv (list (expand-file-name "~/.emacs.d/.python-environments")))
-;;   (add-hook 'python-mode-hook 'jedi:setup)
-;;   (setq jedi:complete-on-dot t)
-;;   (setq jedi:use-shortcuts t)
-;;   :config
-;;   (defun config/enable-company-jedi ()
-;;     (add-to-list 'company-backends 'company-jedi))
-  
-;;   (add-hook 'python-mode-hook 'config/enable-company-jedi)
-
+  (setq company-minimum-prefix-length 1
+      company-idle-delay 0.0) ;; default is 0.2
   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yaml-mode
-  :ensure t)
+  :ensure t
+  :init
+  (add-hook 'yaml-mode-hook #'lsp-deferred))
 
 (use-package markdown-mode
   :ensure t)
 
-(use-package magit
+(use-package terraform-mode
   :ensure t)
 
-(use-package pyenv-mode
-  :ensure t
-  :config
-  (pyenv-mode 1))
+(use-package magit
+  :ensure t)
 
 (use-package flycheck
   :ensure t
@@ -122,11 +82,10 @@
   :init)
 
 (use-package kaolin-themes
-  :ensure t)
-
-(use-package avy
   :ensure t
-  :bind ("C-c j" . avy-goto-word-or-subword-1))
+  :init
+  (load-theme 'kaolin-dark))
+
 
 (use-package dockerfile-mode
   :ensure t)
@@ -136,46 +95,55 @@
   :init
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
-(use-package web-mode
-  :ensure t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode)))
 
-(use-package js2-mode
+(use-package lsp-mode
   :ensure t
+  :commands lsp
   :init
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+  (setq lsp-keymap-prefix "C-c l")
+  ;; (setq lsp-enable-flycheck t
+  ;;       lsp-enable-eldoc t
+  ;;       lsp-enable-completion-at-point t
+  ;;       lsp-auto-guess-root t
+  ;;       lsp-print-io t)
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+  (add-hook 'terraform-mode-hook #'lsp-deferred)
+)
 
-(use-package coffee-mode
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :after lsp-mode)
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
+
+(use-package which-key
   :ensure t)
 
-(use-package solarized-theme
+(use-package go-mode
   :ensure t
   :init
-  (setq x-underline-at-descent-line t)
-  (load-theme 'solarized-light))
+  (add-hook 'go-mode-hook #'lsp-deferred)
 
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :commands lsp
-;;   :init
-;;   (setq lsp-enable-flycheck t
-;;         lsp-enable-eldoc t
-;;         lsp-enable-completion-at-point t
-;;         lsp-auto-guess-root t
-;;         lsp-print-io t)
-;;   (add-hook 'ruby-mode-hook #'lsp))
+  ;; Set up before-save hooks to format buffer and add/delete imports.
+  ;; Make sure you don't have other gofmt/goimports hooks enabled.
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
+
+(use-package all-the-icons
+  :ensure t
+  :if (display-graphic-p))
 
 
-;; (use-package company-lsp
-;;   :ensure t
-;;   :commands company-lsp
-;;   :after lsp-mode)
-
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :commands lsp-ui-mode
-;;   :after lsp-mode)
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
 
 (provide 'pkgs)
 
