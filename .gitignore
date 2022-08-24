@@ -12,3 +12,8 @@ transient
 eshell
 .lsp-session*
 bookmarks
+.cache
+history
+places
+projects
+custom.el

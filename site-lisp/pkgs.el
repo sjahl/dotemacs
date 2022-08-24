@@ -38,6 +38,9 @@
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
+(use-package ripgrep
+  :ensure t)
+
 (use-package better-defaults
   :ensure t)
 
@@ -86,7 +89,6 @@
   :init
   (load-theme 'kaolin-dark))
 
-
 (use-package dockerfile-mode
   :ensure t)
 
@@ -94,7 +96,6 @@
   :ensure t
   :init
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
-
 
 (use-package lsp-mode
   :ensure t
@@ -144,6 +145,18 @@
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1))
+
+(use-package pyvenv
+  :ensure t)
+
+(use-package vterm
+  :ensure t)
+
+(use-package ns-auto-titlebar
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :config
+  (ns-auto-titlebar-mode t))
 
 (provide 'pkgs)
 

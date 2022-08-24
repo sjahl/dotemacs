@@ -6,8 +6,8 @@
 ;;; Code:
 
 ;; font stuff
-;;(add-to-list 'default-frame-alist '(font . "Fira Code-10"))
-;;(set-face-attribute 'default t :font "Fira Code-10")
+(add-to-list 'default-frame-alist '(font . "Input-12"))
+(set-face-attribute 'default t :font "Input-12")
 (global-auto-revert-mode 1)
 ;; (global-display-line-numbers-mode 1)
 (doom-themes-visual-bell-config)
