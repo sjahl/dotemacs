@@ -174,7 +174,8 @@
 (use-package git-gutter
   :ensure t
   :hook ((prog-mode . git-gutter-mode)
-         (conf-mode . git-gutter-mode))
+         (conf-mode . git-gutter-mode)
+         (text-mode . git-gutter-mode))
   :config
   (setq git-gutter:update-interval 0.02))
 
