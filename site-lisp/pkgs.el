@@ -211,4 +211,4 @@
   :ensure t)
 
 (provide 'pkgs)
-;;; pkgs.el ends here dude
+;;; pkgs.el ends here
