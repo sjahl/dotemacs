@@ -31,3 +31,7 @@
 (require 'functions)
 (require 'pkgs)
 (require 'config)
+
+(provide 'init)
+
+;;; init.el ends here
