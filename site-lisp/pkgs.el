@@ -17,11 +17,9 @@
   :ensure t
   :config
   (if window-system
-    (progn
+      (progn
+      (setq exec-path-from-shell-arguments nil)
       (exec-path-from-shell-initialize))))
-
-(use-package diminish
-  :ensure t)
 
 (use-package delight
   :ensure t)
@@ -35,8 +33,9 @@
   ;;                        (projectile-project-name))))
   :config
   (projectile-mode 1)
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  ;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  )
 
 (use-package ripgrep
   :ensure t)
@@ -45,16 +44,17 @@
   :ensure t)
 
 (use-package company
-  :diminish company-mode
+  :delight company-mode
   :ensure t
   :init
-  (setq company-minimum-prefix-length 1
+  (setq company-minimum-prefix-length 2
       company-idle-delay 0.0) ;; default is 0.2
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'prog-mode-hook 'company-mode))
 
 (use-package yaml-mode
   :ensure t
   :init
+  (add-hook 'yaml-mode-hook #'trl-whitespace-hook)
   (add-hook 'yaml-mode-hook #'lsp-deferred))
 
 (use-package markdown-mode
@@ -134,7 +134,7 @@
   ;; Make sure you don't have other gofmt/goimports hooks enabled.
   (defun lsp-go-install-save-hooks ()
     (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+    (add-hooks 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
 
 (use-package all-the-icons
@@ -174,6 +174,30 @@
   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+
+(use-package ivy
+  :demand
+  :ensure t
+  :init (ivy-mode t)
+  :config
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t
+        ivy-count-format "%d/%d "))
+
+(use-package counsel
+  :ensure t
+  :after ivy
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-x C-g") 'counsel-git)
+  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+  (global-set-key (kbd "s-r") 'counsel-imenu)
+  (global-set-key (kbd "s-F") 'counsel-rg))
+
+(use-package swiper
+  :after ivy
+  :ensure t)
 
 (provide 'pkgs)
 

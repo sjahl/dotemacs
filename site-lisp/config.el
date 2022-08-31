@@ -16,13 +16,23 @@
 (column-number-mode 1)
 (global-unset-key (kbd "C-z"))
 (delete-selection-mode 1)
-(ido-mode 1)
 (electric-pair-mode 1)
 
 (setq backup-directory-alist '(("." . "~/.emacs-saves")))
 
 (global-set-key (kbd "M-u") 'upcase-dwim)
 (global-set-key (kbd "M-l") 'downcase-dwim)
+
+;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+(defun trl-whitespace-hook ()
+  "Show trailing whitespace in the current buffer."
+  (setq-local show-trailing-whitespace t))
+
+(add-hook 'prog-mode-hook #'trl-whitespace-hook)
+
+(add-hook 'before-save-hook
+          'delete-trailing-whitespace)
 
 (provide 'config)
 
