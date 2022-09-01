@@ -23,7 +23,7 @@
 (global-set-key (kbd "M-u") 'upcase-dwim)
 (global-set-key (kbd "M-l") 'downcase-dwim)
 
-;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 (defun trl-whitespace-hook ()
   "Show trailing whitespace in the current buffer."
@@ -33,6 +33,8 @@
 
 (add-hook 'before-save-hook
           'delete-trailing-whitespace)
+
+;; (setq-default fringes-outside-margins t)
 
 (provide 'config)
 
